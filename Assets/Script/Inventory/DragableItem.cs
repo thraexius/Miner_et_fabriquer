@@ -1,13 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem; // Ajout du namespace Input System
 
 public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    [Header("UI")]
     public Image image;
+    public TextMeshProUGUI countText;
+
+    [HideInInspector] public Item item;
+    [HideInInspector] public int count = 1;
     [HideInInspector] public Transform parentAfterDrag;
     private InputAction mousePositionAction; // Déclaration de l'action d'entrée
+
+    public void InitialiseItem(Item newItem){
+        item = newItem;
+        image.sprite = newItem.image;
+        RefreshCount();
+    }
+
+    public void RefreshCount() {
+        countText.text = count.ToString();
+        bool textActive = count > 1;
+        countText.gameObject.SetActive(textActive);
+    }
 
     private void Awake()
     {

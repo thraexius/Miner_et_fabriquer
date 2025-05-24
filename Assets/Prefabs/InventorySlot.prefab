@@ -68,7 +68,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -113,3 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ac3a7de938643a5d048428895660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 5314001733449169645}
+  selectedColor: {r: 1, g: 0.84501135, b: 0.6396227, a: 1}
+  notSelectedColor: {r: 0.89433956, g: 0.89433956, b: 0.89433956, a: 1}

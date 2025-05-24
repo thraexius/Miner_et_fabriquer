@@ -1096,6 +1096,111 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InventoryActions"",
+            ""id"": ""2e146937-35e4-4323-8531-d63321083dae"",
+            ""actions"": [
+                {
+                    ""name"": ""ChangeSlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""29b40caf-c327-41a8-8899-3872c7b6fc6c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""187d5db0-9b75-4793-9e34-5100a2c652bd"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0207568-edee-4f3a-ace1-15f00f8c4058"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24010c8f-dd5c-4536-bcfb-a09621863978"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d253b8b-03b4-44a6-bc67-cfa6fdb888f7"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""968fa8b9-718b-46ff-9106-dffdffdc9ed9"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f74ac97e-fe4c-40ff-9a58-f1668fd40c45"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11b0360d-5e1f-4666-8cae-71021890b57c"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5dc7d62b-f827-41b9-980a-a6f0d2e9a45f"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeSlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1185,12 +1290,16 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_OpenInventory = m_UI.FindAction("OpenInventory", throwIfNotFound: true);
+        // InventoryActions
+        m_InventoryActions = asset.FindActionMap("InventoryActions", throwIfNotFound: true);
+        m_InventoryActions_ChangeSlot = m_InventoryActions.FindAction("ChangeSlot", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_InventoryActions.enabled, "This will cause a leak and performance issues, InputSystem_Actions.InventoryActions.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1652,6 +1761,102 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="UIActions" /> instance referencing this action map.
     /// </summary>
     public UIActions @UI => new UIActions(this);
+
+    // InventoryActions
+    private readonly InputActionMap m_InventoryActions;
+    private List<IInventoryActionsActions> m_InventoryActionsActionsCallbackInterfaces = new List<IInventoryActionsActions>();
+    private readonly InputAction m_InventoryActions_ChangeSlot;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "InventoryActions".
+    /// </summary>
+    public struct InventoryActionsActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public InventoryActionsActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "InventoryActions/ChangeSlot".
+        /// </summary>
+        public InputAction @ChangeSlot => m_Wrapper.m_InventoryActions_ChangeSlot;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_InventoryActions; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="InventoryActionsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(InventoryActionsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="InventoryActionsActions" />
+        public void AddCallbacks(IInventoryActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InventoryActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InventoryActionsActionsCallbackInterfaces.Add(instance);
+            @ChangeSlot.started += instance.OnChangeSlot;
+            @ChangeSlot.performed += instance.OnChangeSlot;
+            @ChangeSlot.canceled += instance.OnChangeSlot;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="InventoryActionsActions" />
+        private void UnregisterCallbacks(IInventoryActionsActions instance)
+        {
+            @ChangeSlot.started -= instance.OnChangeSlot;
+            @ChangeSlot.performed -= instance.OnChangeSlot;
+            @ChangeSlot.canceled -= instance.OnChangeSlot;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="InventoryActionsActions.UnregisterCallbacks(IInventoryActionsActions)" />.
+        /// </summary>
+        /// <seealso cref="InventoryActionsActions.UnregisterCallbacks(IInventoryActionsActions)" />
+        public void RemoveCallbacks(IInventoryActionsActions instance)
+        {
+            if (m_Wrapper.m_InventoryActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="InventoryActionsActions.AddCallbacks(IInventoryActionsActions)" />
+        /// <seealso cref="InventoryActionsActions.RemoveCallbacks(IInventoryActionsActions)" />
+        /// <seealso cref="InventoryActionsActions.UnregisterCallbacks(IInventoryActionsActions)" />
+        public void SetCallbacks(IInventoryActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InventoryActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InventoryActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="InventoryActionsActions" /> instance referencing this action map.
+    /// </summary>
+    public InventoryActionsActions @InventoryActions => new InventoryActionsActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1872,5 +2077,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenInventory(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "InventoryActions" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="InventoryActionsActions.AddCallbacks(IInventoryActionsActions)" />
+    /// <seealso cref="InventoryActionsActions.RemoveCallbacks(IInventoryActionsActions)" />
+    public interface IInventoryActionsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "ChangeSlot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeSlot(InputAction.CallbackContext context);
     }
 }
