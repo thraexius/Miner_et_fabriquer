@@ -20,7 +20,8 @@ public class Item : ScriptableObject
 
 public enum ItemType {
     BuildingBlock,
-    Tool
+    Tool,
+    Food
 }
 
 public enum ActionType {

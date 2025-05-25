@@ -3,21 +3,28 @@ using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
-    public GameObject inventoryObject; // Référence à l'empty object contenant l'inventaire
+    public GameObject inventoryObject;
+    public FirstPersonCameraRotation cameraController; // Référence au script de la caméra
     private bool isInventoryOpen = false;
 
     private void Start()
     {
-        // Assurez-vous que l'inventaire est bien caché au départ
         inventoryObject.SetActive(false);
     }
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
-        if (context.performed) // Vérifie si l'action a été exécutée
+        if (context.performed)
         {
-            isInventoryOpen = !isInventoryOpen; // Bascule l'état
-            inventoryObject.SetActive(isInventoryOpen); // Affiche ou cache l'empty object
+            isInventoryOpen = !isInventoryOpen;
+            inventoryObject.SetActive(isInventoryOpen);
+
+            Time.timeScale = isInventoryOpen ? 0f : 1f;
+
+            if (cameraController != null)
+            {
+                cameraController.EnableLook(!isInventoryOpen); // Désactive la rotation de la caméra quand l'inventaire est ouvert
+            }
         }
     }
 }
