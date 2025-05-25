@@ -3173,9 +3173,13 @@ MonoBehaviour:
   moveActionReference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpActionReference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   crouchActionReference: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  sprintActionReference: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveSpeed: 8
   gravityValue: -15
   jumpHeight: 1.5
+  sprintSpeedMultiplier: 1.75
+  mustBeMovingForwardToSprint: 1
+  canSprintInAir: 0
   crouchHeightTarget: 1.9
   crouchSpeedMultiplier: 0.5
   crouchJumpHeight: 1
